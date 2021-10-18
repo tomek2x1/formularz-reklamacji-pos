@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/formularz-reklamacji-pos/static/css/main.f056f35b.chunk.css",
-    "main.js": "/formularz-reklamacji-pos/static/js/main.159d52ed.chunk.js",
-    "main.js.map": "/formularz-reklamacji-pos/static/js/main.159d52ed.chunk.js.map",
+    "main.js": "/formularz-reklamacji-pos/static/js/main.511933a0.chunk.js",
+    "main.js.map": "/formularz-reklamacji-pos/static/js/main.511933a0.chunk.js.map",
     "runtime-main.js": "/formularz-reklamacji-pos/static/js/runtime-main.e49953be.js",
     "runtime-main.js.map": "/formularz-reklamacji-pos/static/js/runtime-main.e49953be.js.map",
     "static/js/2.bbffd76b.chunk.js": "/formularz-reklamacji-pos/static/js/2.bbffd76b.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.e49953be.js",
     "static/js/2.bbffd76b.chunk.js",
     "static/css/main.f056f35b.chunk.css",
-    "static/js/main.159d52ed.chunk.js"
+    "static/js/main.511933a0.chunk.js"
   ]
 }
