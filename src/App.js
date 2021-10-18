@@ -146,10 +146,13 @@ const App = () => {
 
     if (state.getBack === "") validate.getBack = true;
 
+    const regExZipCode =/^\d\d-\d\d\d$/;
+
     if (state.getBack === "kurierem na adres") {
       if (state.street === "") validate.street = true;
 
-      if (state.zipCode === "") validate.zipCode = true;
+
+    if (!regExZipCode.test(state.zipCode)) validate.zipCode = true;
 
       if (state.city === "") validate.city = true;
     }
@@ -179,7 +182,7 @@ const App = () => {
       state.deviceSamePlace === "Nie"
     ) {
       if (state.street2 === "") validate.street2 = true;
-      if (state.zipCode2 === "") validate.zipCode2 = true;
+      if (!regExZipCode.test(state.zipCode2)) validate.zipCode2 = true;
       if (state.city2 === "") validate.city2 = true;
     }
 
@@ -513,7 +516,7 @@ const App = () => {
                 name={"zipCode"}
                 labelName="Kod pocztowy"
                 handleInput={handleInput}
-                type={"number"}
+                type={"text"}
                 validation={badValidate.zipCode}
                 errorMsg={"Podaj kod pocztowy"}
               />
