@@ -615,7 +615,7 @@ const App = () => {
                 name={"zipCode2"}
                 labelName="Kod pocztowy"
                 handleInput={handleInput}
-                type={"number"}
+                type={"text"}
                 validation={badValidate.zipCode2}
                 errorMsg={"Podaj kod pocztowy"}
               />
