@@ -373,6 +373,25 @@ const App = () => {
             Formularz reklamacji (salony stacjonarne)
           </h2>
 
+          <Input
+            value={state.employee}
+            name={"employee"}
+            labelName="Osoba przyjmująca reklamację"
+            handleInput={handleInput}
+            validation={badValidate.employee}
+            errorMsg={"Podaj dane osoby przyjmującej reklamację"}
+          />
+
+          <Select
+            value={state.pos}
+            name={"pos"}
+            labelName="Salon, który przyjął reklamację"
+            optionsValue={pos}
+            handleInput={handleInput}
+            validation={badValidate.pos}
+            errorMsg={"Podaj salon, który przyjął reklamację"}
+          />
+
           <Select
             value={state.typeOfReturn}
             name={"typeOfReturn"}
@@ -475,7 +494,7 @@ const App = () => {
           <Select
             value={state.getBack}
             name={"getBack"}
-            labelName="Odbiór towaru przez Klienta"
+            labelName="Odbiór towaru przez Klienta po naprawie"
             optionsValue={whereGetBack}
             handleInput={handleInput}
             validation={badValidate.getBack}
@@ -577,25 +596,6 @@ const App = () => {
             errorMsg={"Podaj opis wady"}
           />
 
-          <Select
-            value={state.pos}
-            name={"pos"}
-            labelName="Salon, który przyjął reklamację"
-            optionsValue={pos}
-            handleInput={handleInput}
-            validation={badValidate.pos}
-            errorMsg={"Podaj salon, który przyjął reklamację"}
-          />
-
-          <Input
-            value={state.employee}
-            name={"employee"}
-            labelName="Pracownik przyjmujący zgłoszenie"
-            handleInput={handleInput}
-            validation={badValidate.employee}
-            errorMsg={"Podaj dane pracownika, który przyjął reklamację"}
-          />
-
           <Agreement
             value={state.agreement}
             name={"agreement"}
@@ -643,13 +643,8 @@ const App = () => {
               Formularz został wysłany poprawnie
             </h2>
             <h3 className="return-message__id">
-              Numer Twojego zgłoszenia:
-              <strong>{taskNumber}</strong>
+              Numer Twojego zgłoszenia: <strong>{taskNumber}</strong>
             </h3>
-            <p className="return-message__remember">
-              ** Pamiętaj, aby spakować wszystkie elementy zestawu oraz oznaczyć
-              paczkę numerem zgłoszenia.
-            </p>
           </div>
         </div>
       ) : null}
