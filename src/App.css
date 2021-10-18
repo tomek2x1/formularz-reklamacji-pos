@@ -27,6 +27,13 @@ body {
   margin-bottom: 10px;
 }
 
+.return-form__subtitle {
+  font-size: 15px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
 .return-form__label {
   display: block;
   margin-bottom: 10px;
@@ -58,6 +65,10 @@ body {
   border-color: #ff4e09;
 }
 
+.return-form__field.return-form__require {
+  border-color: #ff4e09;
+}
+
 .return-form__extra-field {
   display: none;
 }
@@ -68,6 +79,18 @@ body {
 
 .return-form__radio-wrapper {
   border-color: #ff4e09;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .return-form__box {

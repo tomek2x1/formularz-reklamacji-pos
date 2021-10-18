@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 
 import Input from "./Components/Input";
+import InputRadio from "./Components/InputRadio";
 import Select from "./Components/Select";
 import SelectTypeOfReturn from "./Components/SelectTypeOfReturn";
 import TextArea from "./Components/TextArea";
@@ -11,6 +12,8 @@ import FormFooter from "./Components/FormFooter";
 
 const App = () => {
   const [state, setState] = useState({
+    employee: "",
+    pos: "",
     typeOfReturn: "",
     buyDate: "",
     howFinish: "",
@@ -28,9 +31,8 @@ const App = () => {
     quantity: 1,
     serialNumber: "",
     requiresDisassembly: "",
+    deviceSamePlace: "",
     description: "",
-    pos: "",
-    employee: "",
     agreement: false,
   });
 
@@ -52,6 +54,10 @@ const App = () => {
     quantity: false,
     serialNumber: false,
     requiresDisassembly: false,
+    deviceSamePlace: false,
+    street2: false,
+    zipCode2: false,
+    city2: false,
     description: false,
     pos: false,
     employee: false,
@@ -93,6 +99,10 @@ const App = () => {
       quantity: false,
       serialNumber: false,
       requiresDisassembly: false,
+      deviceSamePlace: false,
+      street2: false,
+      zipCode2: false,
+      city2: false,
       description: false,
       pos: false,
       employee: false,
@@ -156,6 +166,25 @@ const App = () => {
     if (state.pos === "") validate.pos = true;
 
     if (state.employee === "") validate.employee = true;
+
+    if (
+      (state.typeOfReturn === "Gwarancja producenta" ||
+        state.typeOfReturn === "Rękojmia") &&
+      state.requiresDisassembly === "Tak"
+    ) {
+      if (state.deviceSamePlace === "") validate.deviceSamePlace = true;
+    }
+
+    if (
+      (state.typeOfReturn === "Gwarancja producenta" ||
+        state.typeOfReturn === "Rękojmia") &&
+      state.requiresDisassembly === "Tak" &&
+      state.deviceSamePlace === "Nie"
+    ) {
+      if (state.street2 === "") validate.street2 = true;
+      if (state.zipCode2 === "") validate.zipCode2 = true;
+      if (state.city2 === "") validate.city2 = true;
+    }
 
     if (state.agreement === false) validate.agreement = true;
 
@@ -241,6 +270,8 @@ const App = () => {
   ];
 
   const isTrue = ["Tak", "Nie"];
+
+  const deviceSamePlace = ["Tak", "Nie"];
 
   const whereGetBack = [
     "w Salonie/ Punkcie sprzedaży (w tym, w którym składane jest zgłoszenie)",
@@ -552,6 +583,56 @@ const App = () => {
             errorMsg={"Czy produkt wymaga demontażu"}
           />
 
+          {(state.typeOfReturn === "Gwarancja producenta" ||
+            state.typeOfReturn === "Rękojmia") &&
+          state.requiresDisassembly === "Tak" ? (
+            <InputRadio
+              value={state.deviceSamePlace}
+              name={"deviceSamePlace"}
+              labelName={`Adres urządzenia taki sam jak powyżej?`}
+              handleInput={handleInput}
+              validation={badValidate.deviceSamePlace}
+              options={deviceSamePlace}
+              errorMsg={`Podaj adres urządzenia`}
+            />
+          ) : null}
+          {(state.typeOfReturn === "Gwarancja producenta" ||
+            state.typeOfReturn === "Rękojmia") &&
+          state.requiresDisassembly === "Tak" &&
+          state.deviceSamePlace === "Nie" ? (
+            <div>
+              <div className="return-form__subtitle">Dane urządzenia:</div>
+              <Input
+                value={state.street2}
+                name={"street2"}
+                labelName="Ulica i numer domu"
+                handleInput={handleInput}
+                type={"text"}
+                validation={badValidate.street2}
+                errorMsg={"Podaj ulicę i numer domu"}
+              />
+
+              <Input
+                value={state.zipCode2}
+                name={"zipCode2"}
+                labelName="Kod pocztowy"
+                handleInput={handleInput}
+                type={"number"}
+                validation={badValidate.zipCode2}
+                errorMsg={"Podaj kod pocztowy"}
+              />
+
+              <Input
+                value={state.city2}
+                name={"city2"}
+                labelName="Miejscowość"
+                handleInput={handleInput}
+                type={"text"}
+                validation={badValidate.city2}
+                errorMsg={"Podaj miejscowość"}
+              />
+            </div>
+          ) : null}
           <TextArea
             value={state.description}
             name={"description"}
