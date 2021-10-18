@@ -32,6 +32,9 @@ const App = () => {
     serialNumber: "",
     requiresDisassembly: "",
     deviceSamePlace: "",
+    street2: "",
+    zipCode2: "",
+    city2: "",
     description: "",
     agreement: false,
   });
@@ -167,17 +170,11 @@ const App = () => {
 
     if (state.employee === "") validate.employee = true;
 
-    if (
-      (state.typeOfReturn === "Gwarancja producenta" ||
-        state.typeOfReturn === "Rękojmia") &&
-      state.requiresDisassembly === "Tak"
-    ) {
+    if (state.requiresDisassembly === "Tak") {
       if (state.deviceSamePlace === "") validate.deviceSamePlace = true;
     }
 
     if (
-      (state.typeOfReturn === "Gwarancja producenta" ||
-        state.typeOfReturn === "Rękojmia") &&
       state.requiresDisassembly === "Tak" &&
       state.deviceSamePlace === "Nie"
     ) {
@@ -190,6 +187,7 @@ const App = () => {
 
     setBadValidate({ ...badValidate, ...validate });
     if (
+      !validate.buyDate &&
       !validate.typeOfReturn &&
       !validate.docNumber &&
       !validate.name &&
@@ -206,36 +204,37 @@ const App = () => {
       !validate.employee &&
       !validate.agreement
     ) {
-      if (state.typeOfReturn === "Gwarancja producenta") {
-        if (!validate.buyDate) {
-          if (state.getBack === "kurierem na adres") {
-            if (!validate.street && !validate.zipCode && !validate.city) {
+      console.log("jestem");
+      if (
+        state.typeOfReturn === "Gwarancja producenta" ||
+        (state.typeOfReturn === "Rękojmia" && state.howFinish) ||
+        state.typeOfReturn === "Dostałem towar uszkodzony"
+      ) {
+        console.log("jestem2");
+        if (state.getBack === "kurierem na adres") {
+          console.log("jestem3");
+          if (state.street && state.zipCode && state.city) {
+            console.log("jestem4");
+            if (state.requiresDisassembly === "Nie") {
               sendForm(state);
+            } else {
+              if (state.street2 && state.zipCode2 && state.city2) {
+                sendForm(state);
+              }
             }
-          } else {
-            sendForm(state);
           }
-        }
-      } else if (state.typeOfReturn === "Rękojmia") {
-        if (!validate.buyDate && !validate.howFinish) {
-          console.log("tutaj", state.getBack);
-          if (state.getBack === "kurierem na adres") {
-            if (!validate.street && !validate.zipCode && !validate.city) {
+        } else {
+          console.log("jestem3.1");
+          if (state.requiresDisassembly === "Nie") {
+            sendForm(state);
+          } else {
+            if (state.deviceSamePlace === "Nie") {
+              if (state.street2 && state.zipCode2 && state.city2) {
+                sendForm(state);
+              }
+            } else {
               sendForm(state);
             }
-          } else {
-            sendForm(state);
-          }
-        }
-      } else if (state.typeOfReturn === "Dostałem towar uszkodzony") {
-        if (!validate.buyDate && !validate.howFinish) {
-          console.log("tutaj", state.getBack);
-          if (state.getBack === "kurierem na adres") {
-            if (!validate.street && !validate.zipCode && !validate.city) {
-              sendForm(state);
-            }
-          } else {
-            sendForm(state);
           }
         }
       }
@@ -583,9 +582,7 @@ const App = () => {
             errorMsg={"Czy produkt wymaga demontażu"}
           />
 
-          {(state.typeOfReturn === "Gwarancja producenta" ||
-            state.typeOfReturn === "Rękojmia") &&
-          state.requiresDisassembly === "Tak" ? (
+          {state.requiresDisassembly === "Tak" ? (
             <InputRadio
               value={state.deviceSamePlace}
               name={"deviceSamePlace"}
@@ -596,9 +593,7 @@ const App = () => {
               errorMsg={`Podaj adres urządzenia`}
             />
           ) : null}
-          {(state.typeOfReturn === "Gwarancja producenta" ||
-            state.typeOfReturn === "Rękojmia") &&
-          state.requiresDisassembly === "Tak" &&
+          {state.requiresDisassembly === "Tak" &&
           state.deviceSamePlace === "Nie" ? (
             <div>
               <div className="return-form__subtitle">Dane urządzenia:</div>
